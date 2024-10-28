@@ -20,21 +20,21 @@ def plotJobs(activitiesPath, plotTitle, jobBoardName = None):
             "color": "#4497bb",
             "lineColor": "rgba(68, 151, 187, 0.2)",
         },
-        "Interview round 2": {
+        "Second Interview": {
             "order": 3,
             "count": 0,
             "jobNames": [],
             "color": "#44a7bb",
             "lineColor": "rgba(68, 167, 187, 0.2)",
         },
-        "Interview round 3": {
+        "Third Interview": {
             "order": 4,
             "count": 0,
             "jobNames": [],
             "color": "#44b5bb",
             "lineColor": "rgba(68, 181, 187, 0.2)",
         },
-        "Interview round 4": {
+        "Forth Interview": {
             "order": 5,
             "count": 0,
             "jobNames": [],
@@ -72,15 +72,15 @@ def plotJobs(activitiesPath, plotTitle, jobBoardName = None):
             if company not in totals["Interview"]["jobNames"]:
                 totals["Interview"]["count"] += 1
                 totals["Interview"]["jobNames"].append(company)
-            elif company not in totals["Interview round 2"]["jobNames"]:
-                totals["Interview round 2"]["count"] += 1
-                totals["Interview round 2"]["jobNames"].append(company)
-            elif company not in totals["Interview round 3"]["jobNames"]:
-                totals["Interview round 3"]["count"] += 1
-                totals["Interview round 3"]["jobNames"].append(company)
-            elif company not in totals["Interview round 4"]["jobNames"]:
-                totals["Interview round 4"]["count"] += 1
-                totals["Interview round 4"]["jobNames"].append(company)
+            elif company not in totals["Second Interview"]["jobNames"]:
+                totals["Second Interview"]["count"] += 1
+                totals["Second Interview"]["jobNames"].append(company)
+            elif company not in totals["Third Interview"]["jobNames"]:
+                totals["Third Interview"]["count"] += 1
+                totals["Third Interview"]["jobNames"].append(company)
+            elif company not in totals["Forth Interview"]["jobNames"]:
+                totals["Forth Interview"]["count"] += 1
+                totals["Forth Interview"]["jobNames"].append(company)
         elif cat == "Offer Received":
             if company not in totals["Offer Received"]["jobNames"]:
                 totals["Offer Received"]["count"] += 1
@@ -132,6 +132,15 @@ def plotJobs(activitiesPath, plotTitle, jobBoardName = None):
             values.append(rejectCount)
             lineLabels.append(total["name"])
             lineColors.append("rgba(187, 68, 70, 0.4)")
+
+    for i, label in enumerate(labels):
+        count = 0
+        for j, target in enumerate(targets if i > 0 else sources):
+            if target == i:
+                count += values[j]
+
+        labels[i] = f'{label}: {count}'
+    
 
 
     fig = go.Figure(data=[go.Sankey(
